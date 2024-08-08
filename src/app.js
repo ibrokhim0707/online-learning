@@ -36,6 +36,8 @@ mongoose
   .connect("mongodb://localhost:27017/online-learning-platform", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    connectTimeoutMS: 30000,  // Ulanish vaqti (millisekund)
+    socketTimeoutMS: 45000    // Socket vaqti (millisekund)
   })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));

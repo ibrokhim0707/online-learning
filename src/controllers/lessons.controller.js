@@ -14,16 +14,20 @@ exports.getAllLessons = async (req, res) => {
 
 exports.getLessonById = async (req, res) => {
   try {
-    const lesson = await Lesson.findById(req.params.id);
-    if (!lesson) {
-      return res.status(404).json({ message: "Lesson not found" });
-    }
-    res.status(200).json(lesson);
+      const lesson = await Lesson.findById(req.params.id);
+      if (!lesson) {
+          return res.status(404).json({
+              message: 'Lesson not found'
+          });
+      }
+      res.status(200).json({
+          data: lesson
+      });
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-      error: error.message,
-    });
+      res.status(500).json({
+          message: 'Server error',
+          error: error.message
+      });
   }
 };
 
