@@ -6,7 +6,7 @@ router.post("/register", authController.register);
 
 router.post("/login", authController.login);
 
-router.get("/profile", authController.getUserInfo);
+router.get('/user/:id', authController.getUserInfo);
 
 router.put("/profile", authController.updateUser);
 

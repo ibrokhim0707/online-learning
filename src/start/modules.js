@@ -15,7 +15,7 @@ const userRoute = require('../routes/userRoute');
 const app = express();
 
 mongoose
-  .connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
