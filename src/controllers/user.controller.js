@@ -1,78 +1,65 @@
 const User = require("../models/User");
 
-const createUser = async (req, res) => {
+
+// Yangi foydalanuvchi yaratish
+exports.createUser = (req, res) => {
+  const { name, email, role } = req.body;
+
+  // Ma'lumotlarni tekshirish
+  if (!name || !email || !role) {
+      return res.status(400).json({ message: 'Name, email, and role are required' });
+  }
+
+  // Yangi foydalanuvchini yaratish (id vaqt belgisi sifatida)
+  const newUser = { id: Date.now(), name, email, role };
+
+  // Massivga saqlash yoki boshqa ma'lumotlar omboriga saqlash (temp)
+  res.status(201).json({ message: 'User created successfully', user: newUser });
+};
+
+// Hamma foydalanuvchilarni olish
+exports.getUsers = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-
-    const newUser = new User({ email, password, role });
-    await newUser.save();
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ message: "Server error" });
+      const users = await User.find(); // Barcha foydalanuvchilarni olish
+      res.status(200).json(users);
+  } catch (err) {
+      res.status(500).json({ message: "Server error", error: err.message });
   }
 };
 
-const updateUser = async (req, res) => {
+// PUT so'rovini qayta ishlash funksiyasi
+exports.updateUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const updates = req.body;
+      const { id } = req.params; // ID parametrni olish
+      const userData = req.body; // Yangilash uchun ma'lumotlar
 
-    const updatedUser = await User.findByIdAndUpdate(id, updates, {
-      new: true,
-    });
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
+      // Foydalanuvchini yangilash
+      const updatedUser = await User.findByIdAndUpdate(id, userData, { new: true });
 
-    res.status(200).json(updatedUser);
+      if (!updatedUser) {
+          return res.status(404).json({ message: 'Foydalanuvchi topilmadi' });
+      }
+
+      res.status(200).json(updatedUser);
   } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: 'Server xatosi', error: error.message });
   }
 };
 
-const getUserById = async (req, res) => {
+// DELETE so'rovini qayta ishlash funksiyasi
+exports.deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
+      const { id } = req.params; // ID parametrni olish
 
-    const user = await User.findById(id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+      // Foydalanuvchini o'chirish
+      const deletedUser = await User.findByIdAndDelete(id);
 
-    res.status(200).json(user);
+      if (!deletedUser) {
+          return res.status(404).json({ message: 'Foydalanuvchi topilmadi' });
+      }
+
+      res.status(200).json({ message: 'Foydalanuvchi muvaffaqiyatli o\'chirildi' });
   } catch (error) {
-    console.error("Error getting user:", error);
-    res.status(500).json({ message: "Server error" });
+      res.status(500).json({ message: 'Server xatosi', error: error.message });
   }
-};
-
-const deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const deletedUser = await User.findByIdAndDelete(id);
-    if (!deletedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting user:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-module.exports = {
-  createUser,
-  updateUser,
-  getUserById,
-  deleteUser,
 };

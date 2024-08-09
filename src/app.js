@@ -13,7 +13,7 @@ const commentRoute = require("./routes/commentRoute");
 const notificationRoute = require("./routes/notificationRoute");
 const searchRoutes = require("./routes/searchRoute");
 const reviewRoutes = require("./routes/reviewRoute");
-const adminRoutes = require("./routes/adminRoute");
+const adminRoutes = require('./routes/adminRoute'); // Admin routing fayli
 const app = express();
 
 app.use(cors());
@@ -29,7 +29,7 @@ app.use("/api/certificates", certificateRoute);
 app.use("/api/comments", commentRoute);
 app.use("/api/notifications", notificationRoute);
 app.use("/api/searches", searchRoutes);
-app.use("/api/admins", adminRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api", reviewRoutes);
 
 mongoose

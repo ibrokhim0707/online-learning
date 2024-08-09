@@ -1,12 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const adminController = require("../controllers/admin.controller");
-const isAdmin = require("../middlewares/is-admin.js")
+const adminController = require('../controllers/admin.controller'); // To'g'ri import qilish
 
-router.post("/admins", isAdmin, adminController.createAdmin);
-router.get("/admins", adminController.getAllAdmins);
-router.get("/admins/:id", adminController.getAdminById);
-router.put("/admins/:id", adminController.updateAdmin);
-router.delete("/admins/:id", adminController.deleteAdmin);
+// Adminlarni olish
+router.get('/', adminController.getAdmins);
+
+// Admin qo'shish
+router.post('/', adminController.createAdmin);
+
+// Adminni yangilash
+router.put('/:id', adminController.updateAdmin);
+
+// Adminni o'chirish
+router.delete('/:id', adminController.deleteAdmin);
 
 module.exports = router;

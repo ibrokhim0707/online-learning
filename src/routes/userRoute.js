@@ -1,18 +1,37 @@
-const express = require("express");
+// const express = require("express");
+// const router = express.Router();
+// const {
+//   createUser,
+//   updateUser,
+//   getUserById,
+//   deleteUser,
+// } = require("../controllers/user.controller");
+
+// router.post("/", createUser);
+
+// router.put("/:id", updateUser);
+
+// router.get("/:id", getUserById);
+
+// router.delete("/:id", deleteUser);
+
+// module.exports = router;
+
+
+const express = require('express');
 const router = express.Router();
-const {
-  createUser,
-  updateUser,
-  getUserById,
-  deleteUser,
-} = require("../controllers/user.controller");
+const userController = require('../controllers/user.controller');
 
-router.post("/", createUser);
+// POST /api/users - Yangi foydalanuvchi yaratish
+router.post('/', userController.createUser);
 
-router.put("/:id", updateUser);
+// GET /api/users - Barcha foydalanuvchilarni olish
+router.get('/', userController.getUsers);
 
-router.get("/:id", getUserById);
+// PUT /api/users/:id - Foydalanuvchini yangilash
+router.put('/:id', userController.updateUser);
 
-router.delete("/:id", deleteUser);
+// DELETE /api/users/:id - Foydalanuvchini o'chirish
+router.delete('/:id', userController.deleteUser);
 
 module.exports = router;
