@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const adminSchema = new Schema({
     name: {
         type: String,
-        required: true,  // Bu maydon majburiy
+        required: true, 
     },
     username: {
         type: String,

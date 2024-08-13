@@ -3,7 +3,7 @@ const Course = require("../models/Course");
 const Lesson = require("../models/Lesson");
 const User = require("../models/User");
 const UserEnrollment = require("../models/UserEnrollment");
-const Admin = require("../models/models.Admin");
+const modelsAdmin = require("../models/models.Admin");
 const Certificate = require("../models/Certificate");
 const Comment = require("../models/Comment");
 const Notification = require("../models/Notification");
@@ -17,7 +17,7 @@ module.exports = {
   Lesson,
   User,
   UserEnrollment,
-  Admin,
+  modelsAdmin,
   Certificate,
   Comment,
   Notification,
