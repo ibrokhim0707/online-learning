@@ -1,6 +1,5 @@
 const Admin = require('../models/models.Admin');
 
-// Admin qo'shish
 exports.createAdmin = async (req, res) => {
     try {
         const admin = new Admin(req.body);
@@ -11,7 +10,6 @@ exports.createAdmin = async (req, res) => {
     }
 };
 
-// Adminlarni olish
 exports.getAdmins = async (req, res) => {
     try {
         const admins = await Admin.find({});
@@ -21,7 +19,6 @@ exports.getAdmins = async (req, res) => {
     }
 };
 
-// Adminni yangilash
 exports.updateAdmin = async (req, res) => {
     try {
         const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -34,7 +31,6 @@ exports.updateAdmin = async (req, res) => {
     }
 };
 
-// Adminni o'chirish
 exports.deleteAdmin = async (req, res) => {
     try {
         const admin = await Admin.findByIdAndDelete(req.params.id);
